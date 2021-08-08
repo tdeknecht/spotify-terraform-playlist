@@ -22,33 +22,27 @@ provider "spotify" {
 }
 
 resource "spotify_playlist" "playlist" {
-  name        = "Terraform Karl Playlist"
-  description = "For Karl"
+  name        = "Terraform Playlist"
+  description = "Jamming to some Terraform code."
   public      = true
 
   tracks = [
-    for track in data.spotify_search_track.this.tracks :
-    track.id
+    data.spotify_track.terraform.id,
+    data.spotify_track.spotify.id,
+    data.spotify_track.provider.id,
   ]
 }
+output "tracks" { value = spotify_playlist.playlist.tracks }
+output "playlist_url" { value = "https://open.spotify.com/playlist/${spotify_playlist.playlist.id}" }
 
-data "spotify_search_track" "this" {
-  artists  = ["Chanel West Coast"]
-  album    = "Now You Know"
-  name     = "Karl"
-  explicit = true
-  limit    = 20
+data "spotify_track" "terraform" {
+  url = "https://open.spotify.com/track/5shiLLxKQ4U7XLELZeXzxy"
 }
 
-# output "tracks" {
-#   value = data.spotify_search_track.this.tracks
-# }
+data "spotify_track" "spotify" {
+  url = "https://open.spotify.com/track/2C2ZwSAx3qqawTmgklsfyo"
+}
 
-# output "tracks_count" {
-#   value = length(data.spotify_search_track.this.tracks)
-# }
-
-output "playlist_url" {
-  value       = "https://open.spotify.com/playlist/${spotify_playlist.playlist.id}"
-  description = "Visit this URL in your browser to listen to the playlist"
+data "spotify_track" "provider" {
+  url = "https://open.spotify.com/track/6R6ihJhRbgu7JxJKIbW57w"
 }
