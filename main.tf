@@ -7,7 +7,7 @@
 terraform {
   required_providers {
     spotify = {
-      version = "~> 0.1.7"
+      version = "~> 0.2.4"
       source  = "conradludgate/spotify"
     }
   }
@@ -36,7 +36,7 @@ output "tracks" { value = spotify_playlist.playlist.tracks }
 output "playlist_url" { value = "https://open.spotify.com/playlist/${spotify_playlist.playlist.id}" }
 
 data "spotify_track" "terraform" {
-  url = "https://open.spotify.com/track/5shiLLxKQ4U7XLELZeXzxy"
+  url = "https://open.spotify.com/track/5shiLLxKQ4U7XLELZeXzxy?si=fbb6de2146224855"
 }
 
 data "spotify_track" "spotify" {
